@@ -18,19 +18,18 @@ def CNN_16(weights_path=None, shape=(48, 48)):
     model = Sequential()
     
     # It's easier to design networks if you preserve height and width and don't have to worry too much about tensor dimensions when going from one layer to another because dimensions will just "work".
-    model.add(ZeroPadding2D((1,1), input_shape=(1, 48, 48)))
-    
+    model.add(ZeroPadding2D((1,1), input_shape=(1,48,48)))
+
     # Number of filters i.e. first parameter is number of feature maps we want to use(One feature map created for each filter used).
     # Number of filters argument also requires number of rows and columns in feature detector.
     # For the next statement, 32 is number of filters(Feature detectors) you want to use.
-    # Usually we start with 32, then go further with 64,128.. 256 in future layers
+    # start with 32, then go further with 64,128.. 256 in future layers
     # 3, 3 is number of rows and number of columns for Feature Detector.
     # Activation function is relu as per step 1.
     model.add(Convolution2D(32, 3, 3, activation='relu'))
     model.add(ZeroPadding2D((1,1)))
     model.add(Convolution2D(32, 3, 3, activation='relu'))
     # pool_size is generally (2,2). Will reduce size of feature maps and divide it by 2.
-    # In short, we just reduced complexity of our model without affecting performance.
     model.add(MaxPooling2D((2,2), strides=(2,2)))
     model.add(ZeroPadding2D((1,1)))
     model.add(Convolution2D(64, 3, 3, activation='relu'))
